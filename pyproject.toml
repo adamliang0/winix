@@ -1,0 +1,21 @@
+[project]
+dependencies    = ["boto3>=1.42.13", "warrant-lite>=1.0.4"]
+description     = "Python library for controlling IoT devices from Winix"
+name            = "winix"
+readme          = "README.md"
+requires-python = ">=3.14"
+version         = "0.1.0"
+
+[build-system]
+build-backend = "uv_build"
+requires      = ["uv_build>=0.9.18,<0.10.0"]
+
+[tool.uv.build-backend]
+module-name = "winix"
+module-root = ""
+
+[tool.pyrefly]
+project-includes = ["**/*.py*", "**/*.ipynb"]
+
+[dependency-groups]
+dev = ["black>=25.12.0", "pyrefly>=0.46.0", "ruff>=0.14.10"]
