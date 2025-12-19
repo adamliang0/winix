@@ -1,5 +1,5 @@
 [project]
-dependencies    = ["boto3>=1.42.13", "warrant-lite>=1.0.4"]
+dependencies    = ["boto3>=1.42.13", "pycognito>=2024.5.1", "python-jose>=3.5.0"]
 description     = "Python library for controlling IoT devices from Winix"
 name            = "winix"
 readme          = "README.md"
@@ -14,8 +14,19 @@ requires      = ["uv_build>=0.9.18,<0.10.0"]
 module-name = "winix"
 module-root = ""
 
+[tool.pytest.ini_options]
+addopts = "-m 'not integration'"
+markers = ["integration: marks tests as integration (deselect with '-m \"not integration\"')"]
+
 [tool.pyrefly]
 project-includes = ["**/*.py*", "**/*.ipynb"]
 
 [dependency-groups]
-dev = ["black>=25.12.0", "pyrefly>=0.46.0", "ruff>=0.14.10"]
+dev = [
+    "black>=25.12.0",
+    "dotenv>=0.9.9",
+    "pyrefly>=0.46.0",
+    "pytest>=8.0.0",
+    "python-dotenv>=1.2.1",
+    "ruff>=0.14.10",
+]
