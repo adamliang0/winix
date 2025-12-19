@@ -95,7 +95,9 @@ class LoginCmd(Cmd):
 
     @classmethod
     def add_parser(cls, parser):
-        parser.add_argument("--username", help="Username (email)", required=False)
+        parser.add_argument("--username",
+                            help="Username (email)",
+                            required=False)
         parser.add_argument("--password", help="Password", required=False)
         parser.add_argument(
             "--refresh",
@@ -126,6 +128,9 @@ class LoginCmd(Cmd):
         print("Ok")
 
     def _refresh(self):
+        if self.config.cognito is None:
+            raise UserError("No Cognito token found. Please login first.")
+
         self.config.cognito = refresh(
             user_id=self.config.cognito.user_id,
             refresh_token=self.config.cognito.refresh_token,
@@ -261,6 +266,7 @@ class RefreshCmd(Cmd):
         pass
 
     def execute(self):
+        # pyrefly: ignore [missing-attribute]
         account = WinixAccount(self.config.cognito.access_token)
         self.config.devices = account.get_device_info_list()
         self.config.save()
